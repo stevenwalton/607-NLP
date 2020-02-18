@@ -1,0 +1,49 @@
+% Overview Slide
+\begin{frame}
+
+\begin{itemize}
+    \item \emph{\color{UOYellow}Flexible Neural Machine Translation Architecture
+        Combination}
+    \begin{itemize}
+    \emph{\color{UOYellow}
+        \item Neural Machine Translation (NMT)
+        \item Architecture Definition Language (ADL)
+        \item Layer Definitions
+        \item Standard Architectures
+    }
+    \end{itemize}
+    \item Related Work
+    \item Experiments
+    \item Conclusion
+\end{itemize}
+
+\end{frame}
+
+% 2.1
+\begin{frame}
+\frametitle{Neural Machine Translation (NMT)}
+
+\begin{itemize} 
+    \item NMT is a sequence to sequence prediction task 
+\end{itemize}
+\[
+    X \mapsto Y
+\]
+\[
+    p(y_t | Y_{1:t-1}, X; \boldsymbol{\theta}) = \text{softmax}(\boldsymbol{W}_o
+            \boldsymbol{z}^L + \boldsymbol{b}_o)
+\]
+
+\begin{itemize}
+    \item $\boldsymbol{W}_o$ projects a model dependent hidden vector
+    $\boldsymbol{z}^L$ of the L$^\text{th}$ decoder layer to the dimension of
+    the target vocabulary $\boldsymbol{V}_{trg}$
+    \item Training minimizes cross-entropy loss
+\end{itemize}
+
+\end{frame}
+
+%2.2
+\begin{frame}
+\frametitle{Architecture Definition Language (ADL)}
+\end{frame}
