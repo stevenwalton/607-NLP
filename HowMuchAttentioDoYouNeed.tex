@@ -11,6 +11,16 @@
 %\usepackage{media9}
 \hypersetup{pdfpagemode=FullScreen} % Presentation Mode
 
+% Remove navigation symbols
+\beamertemplatenavigationsymbolsempty
+% Add page number
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
 % Title
 \title{How Much Attention Do You Need?\\
     \small A Granular Analysis of Neural Machine Translation Architectures
@@ -23,6 +33,7 @@
     \includegraphics[width=\paperwidth,height=\paperheight]{UOTemplate.png}
 }
 \definecolor{UOYellow}{HTML}{FDCB00}
+\definecolor{UOGreen}{HTML}{424443}
 %\newcommand{\mytitle}[1]{\setcolor{bg=UOYellow,fg=green}\frametitle{{#1}}}
 
 % Formatting
@@ -33,6 +44,9 @@
 \setbeamerfont{frametitle}{size=\Huge}
 %\setbeamerfont{normal text}{size=\LARGE}
 %\setbeamerfont{structure}{size=\LARGE}
+\setbeamercolor{footline}{fg=UOGreen}
+%\setbeamerfont{footline}{series=\bfseries}
+
 
 \begin{document}
 \frame{\titlepage}

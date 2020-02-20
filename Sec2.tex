@@ -46,4 +46,22 @@
 %2.2
 \begin{frame}
 \frametitle{Architecture Definition Language (ADL)}
+    \begin{columns}
+        \begin{column}{0.55\paperwidth}
+        \begin{itemize}
+            \item ADL is a language used to describe network structures.
+            \item This language lets us discuss a NMT in an easy to understand manner.
+            \item E.G. $pos \rightarrow repeat(n,res(cnn(glu) \rightarrow dropout))$ 
+            \begin{itemize}
+                \item Positional encoding $\rightarrow$ residual CNN with gated linear
+                units $\rightarrow$ dropout
+            \end{itemize}
+        \end{itemize}
+    \end{column}
+        \begin{column}{0.39\paperwidth}
+            \vspace{-1cm}
+            \includegraphics[width=\textwidth]{ADL.png}\\
+            \includegraphics[width=\textwidth]{ADL_def.png}
+        \end{column}
+\end{columns}
 \end{frame}
