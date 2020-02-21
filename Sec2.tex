@@ -65,3 +65,73 @@
         \end{column}
 \end{columns}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Architecture Definition Language (ADL)}
+    \begin{columns}
+        \begin{column}{0.49\paperwidth}
+            \underline{Fixed Positional Embeddings}
+            \[
+                pos(\textbf{h}_t) = dropout(\sqrt{d}\textbf{h}_t+\textbf{p}_t)
+            \]
+            \underline{Gated Linear Unit (GLU)}
+            \[
+                glu([\textbf{h}_A;\textbf{h}_B]) =
+                \textbf{h}_A\otimes\sigma(\textbf{h}_B)
+            \]
+            \underline{Dot Product Attention}
+            \[
+                dot\_att(\textbf{Q},\textbf{K},\textbf{V},s)=
+                softmax(\frac{\textbf{QK}^T}{\sqrt{s}})\textbf{V}
+            \]
+        \end{column}
+        \begin{column}{0.49\paperwidth}
+            \underline{Layer Normalization}
+            \[
+                nrom(\textbf{h}_t) = \frac{\textbf{g}}{\sigma_t}\otimes
+                (\textbf{h}_t - \mu_t) + \textbf{b}
+            \]
+            \[
+                \mu_t = \frac1d\textbf{h}_{t,j}   
+                \hspace{1em}
+                \sigma_t = \sqrt{\frac1d(\textbf{h}_{t,j} - \mu_j)^2}
+            \]
+            \underline{Residual Layer}
+            \[
+                res(\textbf{h}_t,l) = \textbf{h}_t + l(\textbf{h}_t
+            \]
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Architecture Definition Language (ADL)}
+    \vspace{-1em}
+    \underline{Transformer}\\
+    Encoder
+    \vspace{-1.5em}
+    \[
+        t_{enc} = res\_nd(mh\_dot\_self\_attn)\rightarrow res\_nd(ffl)
+    \]
+    Decoder
+    \\$t_{dec} = $
+    \vspace{-1em}
+    \[
+        res\_nd(mh\_dot\_self\_attn)\rightarrow
+        res\_nd(mh\_dot\_src\_att)\rightarrow res\_nd(ffl)
+    \]
+    \underline{RNN}
+    \vspace{-1em}
+    \begin{align*}
+        rnn(\textbf{h}_t) &= f_{rnn\_o}(\textbf{h}_t,\textbf{s}_{t-1})\\
+        \textbf{s}_t &= f_{rnn\_h}(\textbf{h}_t,\textbf{s}_{t-1})
+    \end{align*}
+    \underline{Convolution}
+    \vspace{-1em}
+    \[
+        cnn(\textbf{H},v,k) =
+        v(\textbf{W}[\textbf{h}_{i-\lfloor{k/2}\rfloor};
+        \dots\;
+        \textbf{h}_{i+\lfloor{k/2}\rfloor} ]+\textbf{b})
+    \]
+\end{frame}
