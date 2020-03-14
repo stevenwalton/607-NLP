@@ -1,0 +1,62 @@
+\section{Architecture Definition Language}
+To easily experiment with different architectures the authors introduce the
+Neural Machine Translation Architecture Definition Language, or NMT ADL for
+short. NMT is used to perform sequence to sequence prediction tasks using
+machine learning. Specifically, a source sentence $X$ is translated
+auto-regressively into a target sentence $Y$, token-wise.
+\[
+    p(y_t | Y_{1:t-1}, X, \bm{\theta}) = softmax(\bm{W}_o \bm{z}^L + \bm{b}_o)
+\]
+where $\bm{W}_o$ projects a model dependent hidden vector $\bm{z}^L$ and
+$\bm{b}_o$ is the basis vector.
+
+\subsection{ADL}
+ADL is used to define standard NMT architectures. ADL is composed of many
+layers, $l$. Every layer has a definition based on the hidden states of the
+previous layer. Layers are chained together with the notation $l_1 \rightarrow
+l_2 \rightarrow \dots \rightarrow l_L$ or $(l_L(...(l_2(l_1(\bm{H}^o)))))$ if
+there are no attention layers, where $\bm{H}^o$ is the matrix of hidden states.
+This notation is also shortened by the convention $repeat(n,l) = l_1 \rightarrow
+\dots \rightarrow l_L$. ADL includes: dropout, fixed positional embedding,
+linear layers, feed-forward layers, convolutions, identity, concatenations,
+recurrent neural networks, attention, dot product attention, MLP attention,
+source attention, self-attention, layer normalization, and residual layers. 
+
+A set of standard architectures are also used. These include: RNMT, ConvS2S, and
+Transformers. RNMT is defined as follows. The encoding layer is represented by 
+\[
+    \bm{U}^{L_s} = dropout \rightarrow birnn \rightarrow repeat(n-1, res\_d(rnn))
+\]
+The decoder is represented by 
+\[
+    \bm{Z}^L = dropout \rightarrow repeat(n, res\_d(rnn)) \rightarrow concat(id,
+            mlp\_att) \rightarrow ff
+\]
+
+ConvS2s has an encoding layer defined as
+\[
+    \bm{U}^{L_s} = pos \rightarrow repeat(n, res(cnn(glu) \rightarrow dropout))
+\]
+and a decoding layer
+\[
+    \bm{Z}^L = pos \rightarrow res(dropout \rightarrow cnn(glu) \rightarrow
+            dropout \rightarrow (dot\_src\_att(s=1)))
+\]
+The transformer has an encoding block
+\[
+    t_{enc} = res\_nd(mh\_dot\_self\_att) \rightarrow res\_nd(ffl)
+\]
+and a decoding block
+\[
+    t_{dec} = res\_nd(mh\_dot\_self\_att) \rightarrow res\_nd(mh\_dot\_src\_att)
+    \rightarrow res\_nd(ffl)
+\]
+
+The transformed encoder is
+\[
+    \bm{U}^{L_s} = pos \rightarrow repeat(n, t_{enc}) \rightarrow norm
+\]
+and the decoder
+\[
+    \bm{Z}^L = pos \rightarrow repeat(n,t_{dec}) \rightarrow norm
+\]
